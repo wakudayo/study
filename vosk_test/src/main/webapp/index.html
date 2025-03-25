@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Hello Web</title>
+
+	<style>
+		.button-row {
+		  display: flex;
+		  gap: 8px; /* ボタン間のすき間 */
+		  margin-bottom: 10px;
+		}
+	</style>
+	  
+</head>
+
+<body>
+	<h1>Welcome</h1>
+	<button onclick="fetchHello()">Say Hello</button>
+	<p id="result"></p>
+
+	<h1>マイクテスト</h1>
+	<div class="button-row">
+		<button onclick="startAudio()">音声取得</button>
+		<button onclick="startMicTest()">録音開始</button>
+		<button onclick="stopMicTest()">録音終了</button><br>
+		<button onclick="playMicTest()">▶️ 再生</button>
+	</div>
+	<audio id="playback_mictest" controls style="display: block; margin-top: 10px;"></audio>
+
+	<script>
+		function fetchHello() {
+
+			//.warとしてデプロイされたWebアプリの中では、すべて同じURLルート配下になる
+			//そのため、このfetch("hello")は、http://localhost:8080/hello にアクセスすることになる
+			fetch("hello")
+				.then(response => response.text()) // レスポンスをテキストとして取得
+				.then(text => document.getElementById("result").innerText = text) // index.htmlのresult要素に取得したテキストを表示
+				.catch(err => console.error(err));
+		}
+
+		// 録音の準備
+		let audioStream = null;
+		let micTestStream = null;
+		let micTestRecorder = null;
+		let micBlobUrl = null;
+		let micTestChunks = [];
+		const playbackMicTest = document.getElementById('playback_mictest');
+
+		// -- 音声の取得 --
+		function startAudio() {
+			if (!audioStream) {
+				// getUserMediaはpromise を返す
+				navigator.mediaDevices.getUserMedia({
+					video: false,
+					audio: true
+				})
+					.then(function (audio) { // promiseのresultをaudioStreamに格納
+						audioStream = audio;
+					})
+					.catch(function (error) { // error
+						console.error('mediaDevice.getUserMedia() error:', error);
+						return;
+					});
+			}
+		}
+
+		// -- 録音開始 --
+		function startMicTest() {
+			if (!audioStream) {
+				console.warn("Audio not initialized. Call startAudio() first.");
+				return;
+			}
+
+			micTestStream = new MediaStream();
+			micTestStream.addTrack(audioStream.getAudioTracks()[0]);
+			const micTestOptions = {
+				mimeType: 'audio/webm; codecs=opus'
+			};
+			micTestRecorder = new MediaRecorder(micTestStream, micTestOptions);
+			micTestChunks = []; // 格納場所をクリア
+			// 一定間隔で録音が区切られて、データが渡される。
+			micTestRecorder.ondataavailable = function (evt) {
+				console.log("type=" + evt.data.type + " size=" + evt.data.size);
+				micTestChunks.push(evt.data);
+			};
+			micTestRecorder.start(1000);
+			console.log('start mic test');
+		}
+
+		function stopMicTest() {
+			if (micTestRecorder) {
+				micTestRecorder.onstop = function (evt) {
+					console.log('micTestRecorder.onstop() done');
+					micTestRecorder = null;
+
+					const micTestBlob = new Blob(micTestChunks, { type: "audio/webm" });
+					micBlobUrl = window.URL.createObjectURL(micTestBlob);
+					playbackMicTest.src = micBlobUrl;
+				};
+				micTestRecorder.stop();
+				console.log("stop mic test");
+			}
+		}
+
+		// 再生はユーザーがボタンで実行
+		function playMicTest() {
+			if (micBlobUrl) {
+				playbackMicTest.play();
+			} else {
+				console.warn("音声がまだ準備できていません");
+			}
+		}
+
+	</script>
+</body>
+
+</html>
