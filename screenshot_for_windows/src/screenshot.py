@@ -173,7 +173,7 @@ class FullPageScreenshotPlaywright:
 # =====================================メイン処理=====================================
 async def main():
     html_files = get_html_files(SAMPLE_INSTANCE_PATH)
-    print(f"📸 スクリーンショット対象のURL数: {len(html_files)}")
+    print(f" スクリーンショット対象のURL数: {len(html_files)}")
 
     # Chrome で撮影
     print("\n▶ Chromeで撮影開始...")
@@ -191,17 +191,17 @@ async def main():
         with open(chrome_log, "w", encoding="utf-8") as f:
             for url in failed_chrome:
                 f.write(url + "\n")
-        print(f"❌ Chromeで失敗したURLを {chrome_log} に保存しました")
+        print(f" Chromeで失敗したURLを {chrome_log} に保存しました")
 
     if failed_edge:
         edge_log = os.path.join(output_dir, "failed_urls_edge.txt")
         with open(edge_log, "w", encoding="utf-8") as f:
             for url in failed_edge:
                 f.write(url + "\n")
-        print(f"❌ Edgeで失敗したURLを {edge_log} に保存しました")
+        print(f" Edgeで失敗したURLを {edge_log} に保存しました")
 
     if not failed_chrome and not failed_edge:
-        print("🎉 すべてのスクリーンショットが成功しました！")
+        print(" すべてのスクリーンショットが成功しました！")
     
 # 実行
 asyncio.run(main())
