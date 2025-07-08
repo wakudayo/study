@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ポモドーロタイマー</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script defer src="/static/js/timer.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="window">
+            <div class="header">
+                <span class="title">ポモドーロタイマー</span>
+                <span class="window-btns">
+                    <span class="minimize"></span>
+                    <span class="maximize"></span>
+                    <span class="close"></span>
+                </span>
+            </div>
+            <div class="timer-section">
+                <div class="circle-timer">
+                    <svg width="180" height="180">
+                        <circle cx="90" cy="90" r="80" stroke="#e5e7eb" stroke-width="12" fill="none" />
+                        <circle cx="90" cy="90" r="80" stroke="#7b7dfa" stroke-width="12" fill="none" stroke-dasharray="502" stroke-dashoffset="0"/>
+                    </svg>
+                    <div class="timer-label">作業中</div>
+                    <div class="timer-time">25:00</div>
+                </div>
+                <div class="timer-buttons">
+                    <button class="start-btn">開始</button>
+                    <button class="reset-btn">リセット</button>
+                </div>
+            </div>
+            <div class="progress-section">
+                <div class="progress-title">今日の進捗</div>
+                <div class="progress-box">
+                    <div class="progress-done">
+                        <div class="progress-num">0</div>
+                        <div class="progress-label">完了</div>
+                    </div>
+                    <div class="progress-time">
+                        <div class="progress-num">0分</div>
+                        <div class="progress-label">集中時間</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

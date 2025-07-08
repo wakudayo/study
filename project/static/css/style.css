@@ -1,0 +1,135 @@
+body {
+    background: #7b7dfa;
+    font-family: 'Segoe UI', 'Meiryo', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.window {
+    background: #f8f8ff;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(123, 125, 250, 0.2);
+    padding: 32px 24px 24px 24px;
+    width: 350px;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+.window-btns span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: 4px;
+}
+.minimize { background: #e5e7eb; }
+.maximize { background: #e5e7eb; }
+.close { background: #e5e7eb; }
+.timer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.circle-timer {
+    position: relative;
+    margin-bottom: 16px;
+}
+.circle-timer svg {
+    display: block;
+}
+.timer-label {
+    position: absolute;
+    top: 38px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    color: #666;
+}
+.timer-time {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #333;
+}
+.timer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 8px;
+}
+.start-btn {
+    background: #7b7dfa;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(123, 125, 250, 0.08);
+    transition: background 0.2s;
+}
+.start-btn:hover {
+    background: #5a5be7;
+}
+.reset-btn {
+    background: #fff;
+    color: #7b7dfa;
+    border: 2px solid #7b7dfa;
+    border-radius: 20px;
+    padding: 8px 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.reset-btn:hover {
+    background: #f0f0ff;
+}
+.progress-section {
+    background: #f3f4fa;
+    border-radius: 16px;
+    margin-top: 28px;
+    padding: 16px 0 8px 0;
+}
+.progress-title {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    text-align: center;
+}
+.progress-box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.progress-done, .progress-time {
+    text-align: center;
+}
+.progress-num {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #7b7dfa;
+}
+.progress-label {
+    font-size: 0.9rem;
+    color: #666;
+}
